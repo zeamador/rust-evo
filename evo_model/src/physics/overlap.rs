@@ -22,8 +22,8 @@ impl Overlap {
         self.incursion.length().value()
     }
 
-    pub fn to_force(&self, spring: &dyn Spring) -> Force {
-        spring.to_force(self.incursion) * self.width
+    pub fn to_force(&self, spring: &dyn Spring, mass: Mass) -> Force {
+        spring.to_force(self.incursion, mass) * self.width
     }
 }
 
@@ -352,6 +352,6 @@ mod tests {
     fn overlap_to_force_includes_width() {
         let spring = LinearSpring::new(1.0);
         let overlap = Overlap::new(Displacement::new(2.0, -3.0), 1.5);
-        assert_eq!(overlap.to_force(&spring), Force::new(3.0, -4.5));
+        assert_eq!(overlap.to_force(&spring, Mass::ZERO), Force::new(3.0, -4.5));
     }
 }

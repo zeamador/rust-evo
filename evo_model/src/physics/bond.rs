@@ -71,8 +71,8 @@ impl BondStrain {
         BondStrain { strain }
     }
 
-    pub fn to_force(&self, spring: &dyn Spring) -> Force {
-        spring.to_force(self.strain)
+    pub fn to_force(&self, spring: &dyn Spring, mass: Mass) -> Force {
+        spring.to_force(self.strain, mass)
     }
 }
 

@@ -2,7 +2,7 @@ use crate::physics::quantities::*;
 use std::fmt::Debug;
 
 pub trait Spring: Debug {
-    fn to_force(&self, compression: Displacement) -> Force;
+    fn to_force(&self, compression: Displacement, mass: Mass) -> Force;
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -17,7 +17,7 @@ impl LinearSpring {
 }
 
 impl Spring for LinearSpring {
-    fn to_force(&self, compression: Displacement) -> Force {
+    fn to_force(&self, compression: Displacement, _mass: Mass) -> Force {
         Force::new(
             compression.x() * self.spring_constant,
             compression.y() * self.spring_constant,
@@ -34,7 +34,7 @@ mod tests {
         let spring = LinearSpring::new(2.0);
         assert_eq!(
             Force::new(2.0, -3.0),
-            spring.to_force(Displacement::new(1.0, -1.5))
+            spring.to_force(Displacement::new(1.0, -1.5), Mass::ZERO)
         );
     }
 }

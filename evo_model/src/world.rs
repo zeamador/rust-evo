@@ -163,7 +163,7 @@ impl World {
     }
 
     pub fn tick(&mut self) {
-        self.tick_with(Duration::new(1.0), 2);
+        self.tick_with(Duration::new(1.0), 1);
     }
 
     fn tick_with(&mut self, tick_duration: Duration, subticks_per_tick: u32) {
