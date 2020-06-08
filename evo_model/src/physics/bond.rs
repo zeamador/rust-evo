@@ -78,6 +78,10 @@ impl BondStrain {
             self.strain.y() * SPRING_CONSTANT,
         )
     }
+
+    // pub fn to_force(&self, spring: &dyn Spring) -> Force {
+    //     spring.to_force(self.incursion) * self.width
+    // }
 }
 
 pub fn calc_bond_strains<C>(

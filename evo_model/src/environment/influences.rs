@@ -80,12 +80,14 @@ impl Influence for PairCollisions {
 }
 
 #[derive(Debug)]
-pub struct BondForces {}
+pub struct BondForces {
+    spring: Box<dyn Spring>,
+}
 
 impl BondForces {
     #[allow(clippy::new_without_default)]
-    pub fn new() -> Self {
-        BondForces {}
+    pub fn new(spring: Box<dyn Spring>) -> Self {
+        BondForces { spring }
     }
 }
 
@@ -395,7 +397,7 @@ mod tests {
     #[test]
     fn bond_forces_add_forces() {
         let mut cell_graph = SortableGraph::new();
-        let bond_forces = BondForces::new();
+        let bond_forces = BondForces::new(Box::new(LinearSpring::new(1.0)));
         let ball1_handle = cell_graph.add_node(Cell::ball(
             Length::new(1.0),
             Mass::new(1.0),

@@ -31,8 +31,8 @@ impl World {
     pub fn with_standard_influences(self) -> Self {
         self.with_perimeter_walls()
             .with_pair_collisions()
+            .with_bond_forces()
             .with_influences(vec![
-                Box::new(BondForces::new()),
                 Box::new(BondAngleForces::new()),
             ])
     }
@@ -50,6 +50,12 @@ impl World {
     pub fn with_pair_collisions(self) -> Self {
         self.with_influence(Box::new(PairCollisions::new(Box::new(LinearSpring::new(
             0.05,
+        )))))
+    }
+
+    pub fn with_bond_forces(self) -> Self {
+        self.with_influence(Box::new(BondForces::new(Box::new(LinearSpring::new(
+            1.0,
         )))))
     }
 
