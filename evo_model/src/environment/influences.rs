@@ -100,7 +100,7 @@ impl Influence for BondForces {
         let strains = calc_bond_strains(cell_graph);
         for (handle, strain) in strains {
             let cell = cell_graph.node_mut(handle);
-            let force = strain.to_force();
+            let force = strain.to_force(&*self.spring);
             trace!("Cell {} Bond {:?}", cell.node_handle(), force);
             cell.forces_mut().add_force(force);
         }

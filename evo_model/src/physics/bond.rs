@@ -1,6 +1,7 @@
 use crate::physics::quantities::*;
 use crate::physics::shapes::*;
 use crate::physics::sortable_graph::*;
+use crate::physics::spring::Spring;
 use crate::physics::util::*;
 use evo_model_derive::*;
 use std::f64;
@@ -70,18 +71,9 @@ impl BondStrain {
         BondStrain { strain }
     }
 
-    // TODO move this to a Spring class
-    pub fn to_force(&self) -> Force {
-        const SPRING_CONSTANT: f64 = 1.0;
-        Force::new(
-            self.strain.x() * SPRING_CONSTANT,
-            self.strain.y() * SPRING_CONSTANT,
-        )
+    pub fn to_force(&self, spring: &dyn Spring) -> Force {
+        spring.to_force(self.strain)
     }
-
-    // pub fn to_force(&self, spring: &dyn Spring) -> Force {
-    //     spring.to_force(self.incursion) * self.width
-    // }
 }
 
 pub fn calc_bond_strains<C>(
